@@ -96,7 +96,7 @@ function uidExists($connection, $username, $email)
 
 function createUser($connection, $username, $password, $email, $name)
 {
-    $sql = "INSERT INTO usuarios(username,password,email,name) VALUES (?,?,?,?) ;";
+    $sql = "INSERT INTO usuarios(username,password,email,name,userType) VALUES (?,?,?,?,'USER') ;";
     $stmt = mysqli_stmt_init($connection);
     if (!mysqli_stmt_prepare($stmt, $sql)) {
         header("location: ../login.php?error=stmtfailed");
@@ -113,14 +113,14 @@ function createUser($connection, $username, $password, $email, $name)
 
 function loginUser($connection, $username, $password)
 {
-    $uidExists = uidExists($connection,$username,$password);
+    $uidExists = uidExists($connection, $username, $password);
     if ($uidExists === false) {
         header("location:../login.php?error=invalidUid");
     }
 
     $pwdHashed = $uidExists["password"];
 
-    $checkpwd = password_verify($password,$pwdHashed);
+    $checkpwd = password_verify($password, $pwdHashed);
     $checkpwd = $password == $pwdHashed;
 
     if (!$checkpwd) {
@@ -131,6 +131,24 @@ function loginUser($connection, $username, $password)
         $_SESSION["username"] = $uidExists["username"];
         $_SESSION["email"] = $uidExists["email"];
         $_SESSION["name"] = $uidExists["name"];
+        $_SESSION["profilePictureRoute"] = $uidExists["profilePictureRoute"];
+        $_SESSION["userType"] = $uidExists["userType"];
         header("location: ../home.php");
     }
+}
+
+function updateProfilePicture($connection, $profilePicture, $username)
+{
+    $sql = "UPDATE usuarios SET profilePictureRoute = ? WHERE username = ?;";
+    $stmt = mysqli_stmt_init($connection);
+    if (!mysqli_stmt_prepare($stmt, $sql)) {
+        header("location: ../settings.php?error=stmtfailed");
+        exit();
+    }
+
+    mysqli_stmt_bind_param($stmt, "ss", $profilePicture, $username);
+    mysqli_stmt_execute($stmt);
+    mysqli_stmt_close($stmt);
+    $_SESSION['profilePictureRoute'] = $profilePicture;
+    header("location: ../settings.php?error=none");
 }

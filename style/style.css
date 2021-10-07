@@ -102,6 +102,10 @@ a.button {
   color: initial;
 }
 
+.small-logo {
+  max-width: auto;
+  max-height: auto;
+}
 
 body {
   background: #4ab2cc; /* fallback for old browsers */

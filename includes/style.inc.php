@@ -1,5 +1,5 @@
 
-<!-- Icons -->
+<!-- ICONS -->
 <link rel="apple-touch-icon" sizes="57x57" href="img/apple-icon-57x57.png">
 <link rel="apple-touch-icon" sizes="60x60" href="img/apple-icon-60x60.png">
 <link rel="apple-touch-icon" sizes="72x72" href="img/apple-icon-72x72.png">
@@ -19,8 +19,13 @@
 <meta name="theme-color" content="#ffffff">
 
 
-<!--css-->
+<!-- BOOTSTRAP -->
 <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+
+<!-- CSS -->
 <link rel="stylesheet" href="style/style.css">
 <link rel="stylesheet" href="style/normalize.css">
-<link rel="stylesheet" href="style/gg.inc.css">
+<link rel="stylesheet" href="style/gg.min.inc.css">
+
+<!-- FONT AWESOME -->
+<script src="https://kit.fontawesome.com/d825e33153.js" crossorigin="anonymous"></script>

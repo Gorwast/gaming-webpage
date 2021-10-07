@@ -1,5 +1,7 @@
 <?php
-
+if (isset($_SESSION["name"])) {
+    header("location:index.php");
+}
 $pageName="Signup";
 require_once("includes/header.inc.php");
 ?>

@@ -1,7 +1,6 @@
-
 <?php
-if (isset($_SESSION["name"])) {
-    header("location:index.php");
+if (isset($_SESSION["username"])) {
+    header("location: index.php");
 }
 $pageName = "Login";
 include("includes/header.inc.php");
@@ -15,9 +14,11 @@ include("includes/header.inc.php");
                 <div class="header">
                     <h1>Iniciar Sesion</h1>
                 </div>
+
                 <input type="text" placeholder="Usuario, Correo o No. Expediente" name="user" />
                 <input type="password" placeholder="Contraseña" name="password" />
                 <button name="login-submit">Iniciar Sesión</button>
+                <button name="login-invite">Entrar como Invitado</button>
 
                 <?php
                 if (isset($_GET["error"])) {
@@ -27,6 +28,8 @@ include("includes/header.inc.php");
                         echo "<p>Información de inicio de sesion incorrecta!</p>";
                     } else if ($_GET["error"] == "authfailure") {
                         echo "<p>Contraseña o usuario incorrectos, intente de nuevo!</p>";
+                    } else if ($_GET["error"] == "accountCreated") {
+                        echo "<p>Cuenta creada, inicie sesión!</p>";
                     }
                 }
                 ?>

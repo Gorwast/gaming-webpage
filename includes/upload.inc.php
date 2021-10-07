@@ -1,5 +1,7 @@
 <?php
+session_start();
 include_once("dbh.inc.php");
+require_once("functions.inc.php");
 
 if (isset($_POST['submit'])) {
     $file = $_FILES['file'];
@@ -20,9 +22,14 @@ if (isset($_POST['submit'])) {
         if ($fileError === 0) {
             if ($fileSize < 500000) {
                 $fileNameNew = uniqid('', true) . "." . $fileActualExt;
-                $fileDestination = 'uploads/'.$fileNameNew;
+                $fileAbstractDestination = 'uploads/'.$fileNameNew;
+                $fileDestination = $_SERVER['DOCUMENT_ROOT'] .'/login/'.$fileAbstractDestination;
+
                 if (move_uploaded_file($fileTmpName,$fileDestination)) {
+                    echo $fileName.$fileTmpName.$fileSize.$fileError.$fileType;
                     header("Location: ../settings.php?uploadsuccess");
+                    updateProfilePicture($connection,$fileAbstractDestination,$_SESSION["username"]);
+                    
                 } else {
                     header("location: ../settings.php?uploaderror");
                 }
