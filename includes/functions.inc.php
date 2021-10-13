@@ -128,6 +128,7 @@ function loginUser($connection, $username, $password)
         exit();
     } elseif ($checkpwd) {
         session_start();
+        $_SESSION["id"] = $uidExists["id"];
         $_SESSION["username"] = $uidExists["username"];
         $_SESSION["email"] = $uidExists["email"];
         $_SESSION["name"] = $uidExists["name"];
@@ -136,6 +137,67 @@ function loginUser($connection, $username, $password)
         header("location: ../home.php");
     }
 }
+
+function updateUser($connection, $id, $username, $password, $email, $name, $userType)
+{
+    $sql = "UPDATE usuarios SET username = ?, name = ?, email = ?, userType = ?  WHERE id = ?;";
+    $stmt = mysqli_stmt_init($connection);
+    if (!mysqli_stmt_prepare($stmt, $sql)) {
+        header("location: ../usuarios.php?error=stmtfailed");
+        exit();
+    }
+
+    mysqli_stmt_bind_param($stmt, "sssss", $username, $name, $email, $userType, $id);
+    mysqli_stmt_execute($stmt);
+    mysqli_stmt_close($stmt);
+
+    if ($password != "") {
+        $sql = "UPDATE usuarios SET password = ?  WHERE id = ?;";
+        $stmt = mysqli_stmt_init($connection);
+        if (!mysqli_stmt_prepare($stmt, $sql)) {
+            header("location: ../usuarios.php?error=stmtfailed");
+            exit();
+        }
+
+        mysqli_stmt_bind_param($stmt, "ss", md5($password), $id);
+        mysqli_stmt_execute($stmt);
+        mysqli_stmt_close($stmt);
+    }
+    header("location: ../usuarios.php?error=none");
+}
+
+function updateBio($connection, $id, $bioText)
+{
+    $bioText = trim($bioText);
+    $sql = "UPDATE usuarios SET biography = ? WHERE id = ?;";
+    $stmt = mysqli_stmt_init($connection);
+    if (!mysqli_stmt_prepare($stmt, $sql)) {
+        header("location: ../settings.php?error=stmtfailed");
+        exit();
+    }
+
+    mysqli_stmt_bind_param($stmt, "ss", $bioText, $id);
+    mysqli_stmt_execute($stmt);
+    mysqli_stmt_close($stmt);
+       
+    header("location: ../settings.php?bioChanged");
+}
+
+function random_str(
+    $length,
+    $keyspace = '0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ'
+) {
+    $str = '';
+    $max = mb_strlen($keyspace, '8bit') - 1;
+    if ($max < 1) {
+        throw new Exception('$keyspace must be at least two characters long');
+    }
+    for ($i = 0; $i < $length; ++$i) {
+        $str .= $keyspace[random_int(0, $max)];
+    }
+    return $str;
+}
+
 
 function updateProfilePicture($connection, $profilePicture, $username)
 {

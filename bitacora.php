@@ -1,44 +1,14 @@
 <?php
 include("includes/authcheck.inc.php");
-$pageName = "Home";
+$pageName = "Bitacora";
 include("includes/header.inc.php");
 include("includes/dbh.inc.php");
 ?>
 
 <body>
-    <div class="container">
-        <div class="d-flex flex-wrap align-items-center justify-content-center justify-content-lg-start">
-            <div class="row">
-                <div class="text-left col-md-6">
-                    <h2 class="text-white">BIENVENIDO, <?php
-                                                        if (isset($_SESSION["name"])) {
-                                                            echo $_SESSION["name"];
-                                                        }
-                                                        ?></h2>
-                </div>
-
-                <div class="text-end col-md-6">
-                    <?php
-                    if ($_SESSION['userType'] == 'ADMIN') {
-                        echo '<a type="button" class="btn btn-outline-light me-2" href="usuarios.php">Usuarios</a>';
-                        echo '<a type="button" class="btn btn-outline-light me-2" href="bitacora.php">Bitacora</a>';
-                    }
-                    if (isset($_SESSION["username"])) { ?>
-                        <a type="button" class="btn btn-outline-light me-2" href="settings.php">Configuraciones</a>
-                        <a type="button" class="btn btn-outline-light me-2" href="includes/logout.inc.php">Cerrar Sesión</a>
-                    <?php } else { ?>
-                        <a type="button" class="btn btn-outline-light me-2" href="login.php">Login</a>
-                        <a type="button" class="btn btn-warning" href="signup.php" name="signup">Sign-up</a>
-                    <?php }
-                    ?>
-
-                </div>
-            </div>
-
-        </div>
-
-
-    </div>
+    <?php
+    include("includes/header.bar.inc.php");
+    ?>
 
 
     <div class="container">

@@ -16,6 +16,7 @@ if (isset($_POST["login-submit"])) {
   }
   loginUser($connection, $usuario, $contraseña);
 } elseif (isset($_POST["login-invite"])) {
+  $_SESSION["id"] = "none";
   $_SESSION["username"] = "invitado";
   $_SESSION["email"] = "invitado";
   $_SESSION["name"] = "Invitado";

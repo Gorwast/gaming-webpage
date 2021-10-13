@@ -18,24 +18,21 @@ if (isset($_POST['submit'])) {
 
     $allowed = array('jpg', 'jpeg', 'png');
 
+    #Este codigo es malisimo, hay que deshacer todos los nested if
     if (in_array($fileActualExt, $allowed)) {
         if ($fileError === 0) {
             if ($fileSize < 500000) {
                 $fileNameNew = uniqid('', true) . "." . $fileActualExt;
-                $fileAbstractDestination = 'uploads/'.$fileNameNew;
-                $fileDestination = $_SERVER['DOCUMENT_ROOT'] .'/login/'.$fileAbstractDestination;
+                $fileAbstractDestination = 'uploads/' . $fileNameNew;
+                $fileDestination = $_SERVER['DOCUMENT_ROOT'] . '/login/' . $fileAbstractDestination;
 
-                if (move_uploaded_file($fileTmpName,$fileDestination)) {
-                    echo $fileName.$fileTmpName.$fileSize.$fileError.$fileType;
+                if (move_uploaded_file($fileTmpName, $fileDestination)) {
+                    echo $fileName . $fileTmpName . $fileSize . $fileError . $fileType;
                     header("Location: ../settings.php?uploadsuccess");
-                    updateProfilePicture($connection,$fileAbstractDestination,$_SESSION["username"]);
-                    
+                    updateProfilePicture($connection, $fileAbstractDestination, $_SESSION["username"]);
                 } else {
                     header("location: ../settings.php?uploaderror");
                 }
-                
-                
-                
             } else {
 
                 echo "El archivo es demasiado grande!";
@@ -46,6 +43,8 @@ if (isset($_POST['submit'])) {
     } else {
         echo "No puedes subir ningun archivo que no sea una foto";
     }
+} elseif (isset($_POST['submitBio'])) {
+    updateBio($connection,$_SESSION['id'], $_POST['biography']);
 } else {
     header("location:../settings.php?errorUploading");
 }

@@ -1,27 +1,26 @@
 <?php
-if (isset($_SESSION["name"])) {
-    header("location:index.php");
-}
-$pageName = "Signup";
+require_once("includes/authcheck.inc.php");
+$pageName = "Nuevo Usuario";
 require_once("includes/header.inc.php");
 ?>
 
 <body>
+    <?php include("includes/header.bar.inc.php") ?>
     <div class="login-page">
 
         <div class="form">
             <form class="register-form" action="includes/signup.inc.php" method="POST">
                 <div class="header">
-                    <h1>Registro de usuarios</h1>
+                    <h1>Añadir Nuevo Usuario</h1>
                 </div>
-                
-                
+
+
                 <input type="text" placeholder="Nombre" value="" name="name" />
                 <input type="text" placeholder="Nombre de usuario" name="username" />
                 <input type="text" placeholder="Correo Electronico" name="email" />
                 <input type="password" placeholder="Contraseña Nueva" name="password" />
                 <input type="password" placeholder="Repetir Contraseña" name="repeatPassword" />
-                <button name="register-submit">Crear Cuenta</button>
+                <button name="adduser-submit">Añadir Usuario</button>
                 <?php
                 if (isset($_GET["error"])) {
                     if ($_GET["error"] == "emptyInput") {
@@ -43,7 +42,6 @@ require_once("includes/header.inc.php");
                     }
                 }
                 ?>
-                <p class="message">¿Ya esta registrado? <a href="login.php">Iniciar sesión</a></p>
             </form>
         </div>
     </div>

@@ -1,38 +1,68 @@
 <?php
-require_once("includes/authcheck.inc.php");
+
 $pageName = "Settings";
+require_once("includes/authcheck.inc.php");
 require_once("includes/header.inc.php");
 ?>
 
 <body>
 
-     <div class="container">
-          <div class="row">
-               <div class="col-1">
-                    <a href="home.php"><img class="img-fluid" src="img/logo.png" alt="Inicio" height="auto"></a>
-               </div>
-          </div>
-     </div>
-     
+     <?php
+     include("includes/header.bar.inc.php");
+
+     include("includes/dbh.inc.php");
+
+     $query = "SELECT * FROM usuarios WHERE id = " . $_SESSION["id"];
+     $results = mysqli_query($connection, $query);
+     $row = mysqli_fetch_array($results);
+     ?>
+
      <div class="container">
           <main>
-               <h1 class="text-white">Foto de perfil</h1>
-               <div class="row">
+
+               <div class="row pt-10">
+
+
                     <div class="col-3">
+                         <div class="header">
+                              <h3 class="text-white">Foto de perfil </h3>
+                         </div>
                          <a href=""><img class="img-fluid" src="<?php
-                                                  echo $_SESSION['profilePictureRoute'];
-                                                  ?>" alt=""></a>
+                                                                 if ($_SESSION['profilePictureRoute'] == null) {
+                                                                      echo 'img/blank-profile-picture.png';
+                                                                 } else {
+                                                                      echo $_SESSION['profilePictureRoute'];
+                                                                 }
+
+                                                                 ?>" alt=""></a>
+                         <form action="includes/upload.inc.php" method="POST" enctype="multipart/form-data">
+                              <input type="file" name="file" id="photo" accept="image/png, image/gif, image/jpeg">
+                              <button type="submit" name="submit">Subir</button>
+                         </form>
+                    </div>
+
+                    <div class="col-9">
+                         <div class="header">
+                              <h3 class="text-white">Biografia</h3>
+                         </div>
+                         <div class="input-biography">
+                              <form action="includes/upload.inc.php" method="POST" enctype="multipart/form-data">
+                                   <div class="form-group">
+                                        <label for="biography">Biografia</label>
+                                        <textarea class="form-control" name="biography" id="biography" rows="3"><?php echo $row["biography"] ?></textarea>
+                                   </div>
+
+                                   <button type="submit" name="submitBio">Subir</button>
+                              </form>
+                         </div>
                     </div>
                </div>
 
-               <form action="includes/upload.inc.php" method="POST" enctype="multipart/form-data">
-                    <input type="file" name="file" id="photo">
-                    <button type="submit" name="submit">Subir</button>
-               </form>
+
           </main>
      </div>
      <?php
-     include("includes/copyright.inc.php");
+     include("includes/footer.inc.php");
 
      ?>
 </body>
