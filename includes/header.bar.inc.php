@@ -9,8 +9,8 @@
 
             <div class="col-2 d-none d-lg-block align-middle nav col-12 col-md-auto me-md-auto mb-2 justify-content-center mb-md-0">
                 <div class="text-left text-white">
-                    <p class="px-2 text-white">BIENVENIDO, <?php if (isset($_SESSION["name"])) {
-                                                                echo $_SESSION["name"];
+                    <p class="px-2 text-white"> <?php if (isset($_SESSION["name"])) {
+                                                                echo "BIENVENIDO, ". $_SESSION["name"];
                                                             } ?></p>
                 </div>
             </div>
@@ -21,7 +21,6 @@
                 <li><a href="#" class="nav-link px-2 text-white">FAQs</a></li>
                 <li><a href="#" class="nav-link px-2 text-white">About</a></li>
             </ul>
-
 
             <div class="text-end">
                 <?php

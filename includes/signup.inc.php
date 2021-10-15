@@ -23,18 +23,17 @@ if (isset($_POST["register-submit"])) {
         header("location: ../signup.php?error=invalidEmail");
         exit();
     }
-    /*
+    
     if (invalidPassword($password) !== false) {
         header("location: ../signup.php?error=invalidPassword");
         exit();
     }
-    */
+    
 
     if (passwordMatch($password, $repeatPassword) !== false) {
         header("location: ../signup.php?error=pwdsdontmatch");
         exit();
     }
-
 
     if (uidExists($connection, $username, $email) !== false) {
         header("location: ../signup.php?error=uidExists");

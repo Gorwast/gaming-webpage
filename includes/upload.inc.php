@@ -43,6 +43,7 @@ if (isset($_POST['submit'])) {
     } else {
         echo "No puedes subir ningun archivo que no sea una foto";
     }
+
 } elseif (isset($_POST['submitBio'])) {
     updateBio($connection,$_SESSION['id'], $_POST['biography']);
 } else {

@@ -34,17 +34,17 @@ include("includes/header.inc.php");
 
                 </div>
                 <div class="col-lg-6 mx-auto">
-                    <img class="img-fluid rounded" src="img/gaming-monitor.jpg" alt="">
+                    <img class="img-fluid rounded" src="img/gaming-monitor.jpg" alt="Silla Gaming">
 
                 </div>
             </div>
             <div class="row p-10">
 
-                <div class="col-lg-6 d-flex mx-auto">
+                <div class="col-lg-6 mx-auto">
                     <img class="img-fluid rounded" src="img/Gaming-Cloud.jpg" alt="Control Gaming">
                 </div>
 
-                <div class="align-self-center lead mb-4">
+                <div class="col-lg-6 d-flex mx-auto">
                     <p class="align-self-center lead mb-4">Si tienes una pasion por los videojuegos y quieres enterarte de noticias mas recientes, puedes entrar a nuestra pagina para mas informacion, tambien en un futuro podras comprar los juegos que mas te gustan!.</p>
                 </div>
 
