@@ -1,33 +1,79 @@
--- phpMyAdmin SQL Dump
--- version 5.1.1
--- https://www.phpmyadmin.net/
---
--- Servidor: 127.0.0.1
--- Tiempo de generación: 15-10-2021 a las 22:28:23
--- Versión del servidor: 10.4.21-MariaDB
--- Versión de PHP: 8.0.10
-
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 START TRANSACTION;
 SET time_zone = "+00:00";
-
 
 /*!40101 SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT */;
 /*!40101 SET @OLD_CHARACTER_SET_RESULTS=@@CHARACTER_SET_RESULTS */;
 /*!40101 SET @OLD_COLLATION_CONNECTION=@@COLLATION_CONNECTION */;
 /*!40101 SET NAMES utf8mb4 */;
 
---
--- Base de datos: `login`
---
 CREATE DATABASE IF NOT EXISTS `login` DEFAULT CHARACTER SET utf8 COLLATE utf8_spanish_ci;
 USE `login`;
 
--- --------------------------------------------------------
+DROP TABLE IF EXISTS `cart`;
+CREATE TABLE `cart` (
+  `id` int(7) NOT NULL,
+  `username_id` int(11) NOT NULL,
+  `product_id` int(7) NOT NULL,
+  `quantity` int(7) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_spanish_ci;
 
---
--- Estructura de tabla para la tabla `triggers`
---
+INSERT INTO `cart` (`id`, `username_id`, `product_id`, `quantity`) VALUES
+(11, 9, 4, 1),
+(12, 9, 3, 1),
+(13, 9, 1, 1),
+(14, 9, 2, 1);
+
+DROP TABLE IF EXISTS `chat`;
+CREATE TABLE `chat` (
+  `chatid` int(11) NOT NULL,
+  `sender_userid` int(11) NOT NULL,
+  `reciever_userid` int(11) NOT NULL,
+  `message` text NOT NULL,
+  `timestamp` timestamp NOT NULL DEFAULT current_timestamp(),
+  `status` int(1) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+DROP TABLE IF EXISTS `chat_login_details`;
+CREATE TABLE `chat_login_details` (
+  `id` int(11) NOT NULL,
+  `userid` int(11) NOT NULL,
+  `last_activity` timestamp NOT NULL DEFAULT current_timestamp(),
+  `is_typing` enum('no','yes') NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+DROP TABLE IF EXISTS `product`;
+CREATE TABLE `product` (
+  `ID` int(7) NOT NULL,
+  `product_name` varchar(100) COLLATE utf8_spanish_ci NOT NULL,
+  `product_description` varchar(255) COLLATE utf8_spanish_ci DEFAULT NULL,
+  `product_long_description` text COLLATE utf8_spanish_ci NOT NULL,
+  `product_price` float NOT NULL,
+  `product_image` varchar(100) COLLATE utf8_spanish_ci NOT NULL,
+  `quantity` int(7) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_spanish_ci;
+
+INSERT INTO `product` (`ID`, `product_name`, `product_description`, `product_long_description`, `product_price`, `product_image`, `quantity`) VALUES
+(1, 'Iphone 12', 'Teléfono Iphone', 'iPhone es una línea de teléfonos inteligentes de alta gama diseñada y comercializada por Apple Inc. Ejecuta el sistema operativo móvil iOS, conocido hasta mediados de 2010 como \"iPhone OS\".  El iPhone dispone de cámara de fotos y un reproductor de música (equivalente al del iPod), además de software para enviar y recibir mensajes de texto y de voz. También ofrece servicios de Internet, como leer correo electrónico, cargar páginas web y conectividad por Wi-Fi. La primera generación de teléfonos eran GSM cuatribanda con la tecnología EDGE; la segunda generación incluía UMTS con HSDPA.;2​ la sexta generación ya incluía 5G LTE.  Steve Jobs anunció públicamente el iPhone en la Macworld Conference & Expo el 9 de enero de 2007,3​ tras varios rumores y especulaciones que circulaban desde hacía meses.4​ El iPhone se introdujo inicialmente en los Estados Unidos el 29 de junio de 2007. Fue nombrado «Invento del año» por la revista Time en 2007.5​ El 11 de julio de 2008 salió a la venta el iPhone 3G, disponible en 22 países6​ y en 70 para finales de año. Esta versión soportaba la transmisión de datos por 3G a una velocidad más rápida y tecnología AGPS.2​', 1500, 'uploads/iphone-12.png', 1),
+(2, 'PC Gamer', 'Computadora AMD, 8gb RAM, Grafica', 'Los potentes gráficos AMD RadeonTM RX 6800 16GB GDDR6, boost clockc 2140MHz, Memory Clock 16000 MHz, Memory Bus 256 bit proporcionan un rendimiento rápido, sin interrupciones y fluido en los juegos que te apasionan, brindándote el alto rendimiento que necesitas para trabajos exigentes y juego sin límites.', 999, 'uploads/pc_gamer.png', 2),
+(3, 'Xbox One Controller', 'Control Xbox Para videojuegos', 'Experimenta el diseño modernizado del mando inalámbrico Xbox, con superficies esculpidas y una geometría refinada para disfrutar de una mayor comodidad durante el juego. Juega de forma inalámbrica o usa el cable USB-C de 2,7 m incluido para disfrutar de una experiencia de juego con cable. Mantén el objetivo con un control de dirección híbrido y agarre texturizado en los gatillos, botones y funda trasera.*\r\n\r\n', 60, 'uploads/xbox_controller.png', 20),
+(4, 'Control inalámbrico Xbox: Edición especial del 20º aniversario', 'Control de Xbox de Videojuegos', 'Celebra 20 años de Xbox con el Control inalámbrico Xbox: Edición especial del 20º aniversario en color negro clásico con toques verdes que vuelven a los inicios y mucho más. Viaja por el tiempo con los colores de control verdes y negros translúcidos hasta momento del lanzamiento de la consola Xbox original en verde translúcido. Mira por la parte superior en negro translucido para ver los detalles plateados en el interior que representan 20 años de tecnología de Xbox.*\r\n\r\n', 120, 'uploads/xbox_controller_20.png', 10),
+(5, 'Logitech PRO X SUPERLIGHT', 'Mouse Gaming Logitech', 'Elimina todos los obstáculos para ganar con nuestro mouse inalámbrico PRO más ligero y rápido. El nuevo favorito de los mejores profesionales de esports pesa menos de 63 gramos y se desliza sin apenas fricción. PRO X SUPERLIGHT hace gala de nuestra tecnología de diseño ZERØ OPOSICIÓN, cumpliendo así el propósito de eliminar obstáculos y crear una conexión lo más pura posible entre el jugador y el juego. El sensor HERO 25K exclusivo de Logitech G proporciona una precisión, velocidad y homogeneidad inigualables. PRO X SUPERLIGHT ofrece máxima exactitud y control riguroso, para actuar con toda confianza, especialmente en los momentos más intensos de un torneo. Además, los grandes pies de PTFE sin aditivos ofrecen un deslizamiento fluido para una conexión pura y fluida con el juego. Gana la partida', 89, 'uploads/mouse_lightspeed.png', 7);
+DROP TRIGGER IF EXISTS `DELETE PRODUCTO`;
+DELIMITER $$
+CREATE TRIGGER `DELETE PRODUCTO` AFTER DELETE ON `product` FOR EACH ROW INSERT INTO triggers(trigger_name, trigger_message) VALUES("DELETE PRODUCTO",  CONCAT("Se eliminó el producto ", OLD.`product_name`))
+$$
+DELIMITER ;
+DROP TRIGGER IF EXISTS `INSERT PRODUCTO`;
+DELIMITER $$
+CREATE TRIGGER `INSERT PRODUCTO` AFTER INSERT ON `product` FOR EACH ROW INSERT INTO triggers(trigger_name, trigger_message) VALUES("INSERT PRODUCTO",CONCAT("Se añadio el producto ", NEW.`product_name`))
+$$
+DELIMITER ;
+DROP TRIGGER IF EXISTS `UPDATE PRODUCTO`;
+DELIMITER $$
+CREATE TRIGGER `UPDATE PRODUCTO` AFTER UPDATE ON `product` FOR EACH ROW INSERT INTO triggers(trigger_name, trigger_message) VALUES("UPDATE PRODUCTO", CONCAT("Se actualizó los valores del producto ", NEW.`product_name`))
+$$
+DELIMITER ;
 
 DROP TABLE IF EXISTS `triggers`;
 CREATE TABLE `triggers` (
@@ -37,11 +83,85 @@ CREATE TABLE `triggers` (
   `trigger_date` datetime NOT NULL DEFAULT current_timestamp()
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_spanish_ci;
 
--- --------------------------------------------------------
-
---
--- Estructura de tabla para la tabla `usuarios`
---
+INSERT INTO `triggers` (`id`, `trigger_name`, `trigger_message`, `trigger_date`) VALUES
+(1, 'INSERT USUARIOS', 'Se añadio un nuevo usuario', '2021-10-05 00:00:00'),
+(2, 'DELETE USUARIOS', 'Se eliminó un usuario', '2021-10-05 16:10:47'),
+(3, 'DELETE USUARIOS', 'Se eliminó un usuario', '2021-10-05 17:08:25'),
+(4, 'DELETE USUARIOS', 'Se eliminó un usuario', '2021-10-05 18:05:07'),
+(5, 'INSERT USUARIOS', 'Se añadio un nuevo usuario', '2021-10-05 18:05:32'),
+(6, 'DELETE USUARIOS', 'Se eliminó un usuario', '2021-10-06 00:18:13'),
+(7, 'DELETE USUARIOS', 'Se eliminó un usuario', '2021-10-06 15:39:57'),
+(8, 'INSERT USUARIOS', 'Se añadio un nuevo usuario', '2021-10-06 16:01:31'),
+(9, 'UPDATE USUARIOS', 'Se actualizó los valores de un usuario', '2021-10-06 16:01:58'),
+(10, 'INSERT USUARIOS', 'Se añadio un nuevo usuario', '2021-10-06 16:20:13'),
+(11, 'UPDATE USUARIOS', 'Se actualizó los valores de un usuario', '2021-10-06 16:24:34'),
+(12, 'DELETE USUARIOS', 'Se eliminó un usuario', '2021-10-06 16:27:47'),
+(14, 'INSERT USUARIOS', 'Se añadio un nuevo usuario', '2021-10-07 02:22:25'),
+(15, 'DELETE USUARIOS', 'Se eliminó el usuario asdf', '2021-10-07 02:22:38'),
+(16, 'INSERT USUARIOS', 'Se añadio un nuevo usuario', '2021-10-07 15:57:13'),
+(17, 'INSERT USUARIOS', 'Se añadio un nuevo usuario', '2021-10-07 15:57:13'),
+(18, 'INSERT USUARIOS', 'Se añadio un nuevo usuario', '2021-10-07 15:57:13'),
+(19, 'INSERT USUARIOS', 'Se añadio un nuevo usuario', '2021-10-07 15:57:13'),
+(20, 'INSERT USUARIOS', 'Se añadio un nuevo usuario', '2021-10-07 15:57:13'),
+(21, 'INSERT USUARIOS', 'Se añadio un nuevo usuario', '2021-10-07 15:57:13'),
+(22, 'INSERT USUARIOS', 'Se añadio un nuevo usuario', '2021-10-07 15:57:13'),
+(23, 'INSERT USUARIOS', 'Se añadio un nuevo usuario', '2021-10-07 15:57:13'),
+(24, 'INSERT USUARIOS', 'Se añadio un nuevo usuario', '2021-10-07 15:57:13'),
+(34, 'INSERT USUARIOS', 'Se añadio un nuevo usuario', '2021-10-07 15:57:13'),
+(35, 'INSERT USUARIOS', 'Se añadio un nuevo usuario', '2021-10-07 15:57:13'),
+(36, 'DELETE USUARIOS', 'Se eliminó el usuario ipsum.', '2021-10-07 15:58:49'),
+(37, 'DELETE USUARIOS', 'Se eliminó el usuario mollis', '2021-10-12 12:13:03'),
+(38, 'DELETE USUARIOS', 'Se eliminó el usuario at vitae.dolor.donec@imperdiet.net', '2021-10-12 14:44:57'),
+(39, 'DELETE USUARIOS', 'Se eliminó el usuario malesuada suspendisse.commodo@egetmassa.com', '2021-10-12 14:47:33'),
+(58, 'DELETE USUARIOS', 'Se eliminó el usuario ligula primis.in.faucibus@intincidunt.ca', '2021-10-13 04:42:41'),
+(59, 'UPDATE USUARIOS', 'Se actualizó los valores delun usuarioadmin admin@admin.com', '2021-10-13 14:08:32'),
+(60, 'UPDATE USUARIOS', 'Se actualizó los valores delun usuarioDuis donec.felis@vestibulumut.ca', '2021-10-13 14:10:24'),
+(61, 'INSERT USUARIOS', 'Se añadio el usuario asdfasdfasdf asdf@homtail.es', '2021-10-13 14:13:35'),
+(62, 'UPDATE USUARIOS', 'Se actualizó los valores delun usuarioadmin admin@admin.com', '2021-10-13 14:16:33'),
+(63, 'UPDATE USUARIOS', 'Se actualizó los valores delun usuarioadmin admin@admin.com', '2021-10-13 14:19:17'),
+(64, 'UPDATE USUARIOS', 'Se actualizó los valores delun usuarioadmin admin@admin.com', '2021-10-13 14:19:59'),
+(73, 'UPDATE USUARIOS', 'Se actualizó los valores delun usuarioadmin admin@admin.com', '2021-10-13 14:30:37'),
+(74, 'UPDATE USUARIOS', 'Se actualizó los valores delun usuarioadmin admin@admin.com', '2021-10-13 14:44:41'),
+(75, 'UPDATE USUARIOS', 'Se actualizó los valores delun usuarioadmin admin@admin.com', '2021-10-13 14:47:31'),
+(76, 'UPDATE USUARIOS', 'Se actualizó los valores delun usuarioadmin admin@admin.com', '2021-10-13 14:52:33'),
+(77, 'UPDATE USUARIOS', 'Se actualizó los valores delun usuarioadmin admin@admin.com', '2021-10-13 14:58:21'),
+(78, 'UPDATE USUARIOS', 'Se actualizó los valores delun usuarioadmin admin@admin.com', '2021-10-13 14:58:22'),
+(79, 'UPDATE USUARIOS', 'Se actualizó los valores delun usuarioadmin admin@admin.com', '2021-10-13 14:58:23'),
+(80, 'UPDATE USUARIOS', 'Se actualizó los valores delun usuarioadmin admin@admin.com', '2021-10-13 14:58:23'),
+(81, 'UPDATE USUARIOS', 'Se actualizó los valores delun usuarioadmin admin@admin.com', '2021-10-13 15:31:58'),
+(82, 'UPDATE USUARIOS', 'Se actualizó los valores delun usuarioadmin admin@admin.com', '2021-10-13 15:32:02'),
+(83, 'UPDATE USUARIOS', 'Se actualizó los valores delun usuarioadmin admin@admin.com', '2021-10-13 15:32:09'),
+(84, 'UPDATE USUARIOS', 'Se actualizó los valores delun usuarioadmin admin@admin.com', '2021-10-13 15:32:10'),
+(85, 'UPDATE USUARIOS', 'Se actualizó los valores delun usuarioadmin admin@admin.com', '2021-10-13 15:32:36'),
+(86, 'UPDATE USUARIOS', 'Se actualizó los valores delun usuarioadmin admin@admin.com', '2021-10-13 15:32:46'),
+(87, 'INSERT USUARIOS', 'Se añadio el usuario asdfasdf asdf@asdfasdf.com', '2021-10-13 15:34:09'),
+(88, 'UPDATE USUARIOS', 'Se actualizó los valores delun usuarioasdfasdf asdf@asdfasdf.com', '2021-10-13 15:35:41'),
+(89, 'UPDATE USUARIOS', 'Se actualizó los valores del usuario risus | at@velit.org', '2021-10-13 15:51:13'),
+(90, 'UPDATE USUARIOS', 'Se actualizó los valores del usuario pablo1 | at@velit.org', '2021-10-13 15:51:32'),
+(91, 'UPDATE USUARIOS', 'Se actualizó los valores del usuario pablo1 | asdf@gmail.com', '2021-10-13 16:00:13'),
+(92, 'UPDATE USUARIOS', 'Se actualizó los valores del usuario pablo1 | asdf@gmail.com', '2021-10-13 16:00:13'),
+(93, 'UPDATE USUARIOS', 'Se actualizó los valores del usuario etererehola | neque1234@feugiattellus.co.uk', '2021-10-13 16:14:26'),
+(94, 'UPDATE USUARIOS', 'Se actualizó los valores del usuario in | non.feu1234124giat.nec@nislsem.net', '2021-10-13 16:14:51'),
+(95, 'DELETE USUARIOS', 'Se eliminó el usuario asdfasdf asdf@asdfasdf.com', '2021-10-13 16:14:59'),
+(96, 'DELETE USUARIOS', 'Se eliminó el usuario asdfasdfasdf asdf@homtail.es', '2021-10-13 16:15:03'),
+(97, 'UPDATE USUARIOS', 'Se actualizó los valores del usuario admin | admin@admin.com', '2021-10-13 16:16:08'),
+(98, 'UPDATE USUARIOS', 'Se actualizó los valores del usuario admin | admin@admin.com', '2021-10-13 16:16:45'),
+(99, 'INSERT USUARIOS', 'Se añadio el usuario julio1234 julio1234@hotmail.com', '2021-10-13 16:18:26'),
+(100, 'UPDATE USUARIOS', 'Se actualizó los valores del usuario julio1234 | julio1234@hotmail.com', '2021-10-13 16:20:47'),
+(101, 'UPDATE USUARIOS', 'Se actualizó los valores del usuario julio1234 | julio1234@hotmail.com', '2021-10-13 16:20:53'),
+(102, 'UPDATE USUARIOS', 'Se actualizó los valores del usuario hola | hola@hotmail.com', '2021-10-13 16:22:05'),
+(103, 'UPDATE USUARIOS', 'Se actualizó los valores del usuario hola | hola@hotmail.com', '2021-10-13 16:22:05'),
+(104, 'UPDATE USUARIOS', 'Se actualizó los valores del usuario pablo1 | at@velit.org', '2021-10-13 16:25:14'),
+(105, 'UPDATE USUARIOS', 'Se actualizó los valores del usuario pablo1 | at@velit.org', '2021-10-13 16:25:14'),
+(106, 'INSERT USUARIOS', 'Se añadio el usuario gabriel12345 gabriel1234@hotmail.com', '2021-10-14 23:30:54'),
+(107, 'DELETE USUARIOS', 'Se eliminó el usuario gabriel12345 gabriel1234@hotmail.com', '2021-10-14 23:31:17'),
+(108, 'UPDATE PRODUCTO', 'Se actualizó los valores del producto PC', '2021-11-09 22:08:09'),
+(109, 'UPDATE PRODUCTO', 'Se actualizó los valores del producto PC Gamer', '2021-11-09 23:05:06'),
+(110, 'UPDATE PRODUCTO', 'Se actualizó los valores del producto Iphone 12', '2021-11-09 23:09:46'),
+(111, 'UPDATE PRODUCTO', 'Se actualizó los valores del producto PC Gamer', '2021-11-09 23:27:25'),
+(112, 'INSERT PRODUCTO', 'Se añadio el producto Xbox One Controller', '2021-11-10 12:43:59'),
+(113, 'INSERT PRODUCTO', 'Se añadio el producto Control inalámbrico Xbox: Edición especial del 20º aniversario', '2021-11-10 12:43:59'),
+(114, 'INSERT PRODUCTO', 'Se añadio el producto Logitech PRO X SUPERLIGHT', '2021-11-10 12:49:48');
 
 DROP TABLE IF EXISTS `usuarios`;
 CREATE TABLE `usuarios` (
@@ -51,15 +171,34 @@ CREATE TABLE `usuarios` (
   `email` varchar(255) COLLATE utf8_spanish_ci DEFAULT NULL,
   `name` varchar(200) COLLATE utf8_spanish_ci DEFAULT NULL,
   `userType` varchar(7) COLLATE utf8_spanish_ci DEFAULT NULL,
+  `current_session` int(11) NOT NULL,
+  `online` int(11) NOT NULL,
   `profilePictureRoute` varchar(255) COLLATE utf8_spanish_ci DEFAULT NULL,
   `country` varchar(255) COLLATE utf8_spanish_ci NOT NULL,
   `biography` varchar(255) COLLATE utf8_spanish_ci NOT NULL,
   `address` varchar(255) COLLATE utf8_spanish_ci NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_spanish_ci;
 
---
--- Disparadores `usuarios`
---
+INSERT INTO `usuarios` (`id`, `username`, `password`, `email`, `name`, `userType`, `current_session`, `online`, `profilePictureRoute`, `country`, `biography`, `address`) VALUES
+(2, 'pablo1', '4d186321c1a7f0f354b297e8914ab240', 'asdf@gmail.com', 'pablo', 'ADMIN', 0, 0, NULL, '', '', ''),
+(8, 'werox', '4d186321c1a7f0f354b297e8914ab240', 'werox99@wero.net', 'wero', 'USER', 0, 0, NULL, '', '', ''),
+(9, 'admin', '4d186321c1a7f0f354b297e8914ab240', 'admin@admin.com', 'Administrador', 'ADMIN', 0, 0, 'uploads/616768b89db388.69237751.png', '', 'Hola soy el administrador de sistemas!!!', ''),
+(12, 'hola', '209f200ea9f22188efccc9d91672bb10', 'hola@hotmail.com', 'Channing Meyer', 'CLIENT', 0, 0, NULL, '', '', ''),
+(13, 'vitae', 'd41d8cd98f00b204e9800998ecf8427e', 'eget.metus.eu@dapibusligula.ca', 'Hermione Potter', 'CLIENT', 0, 0, NULL, '', '', ''),
+(14, 'etererehola', 'd41d8cd98f00b204e9800998ecf8427e', 'neque1234@feugiattellus.co.uk', 'Pablo', 'CLIENT', 0, 0, NULL, '', '', ''),
+(17, 'magnis', 'c18102310f2ecfeafca5ad31466dc4b4', 'eget.dictum@nonummy.net', 'Myles Compton', 'ADMIN', 0, 0, NULL, '', '', ''),
+(18, 'pablo1', 'f688ae26e9cfa3ba6235477831d5122e', 'at@velit.org', 'Fredericka Rodriquez', 'CLIENT', 0, 0, NULL, '', '', ''),
+(19, 'Duis', 'MMS78QCG2ZV', 'donec.felis@vestibulumut.ca', 'Hillary', 'CLIENT', 0, 0, NULL, '', '', ''),
+(22, 'Curabitur', 'HZL74BSZ9NX', 'molestie.tellus@sapiencrasdolor.co.uk', 'Hadley Parks', 'USER', 0, 0, NULL, '', '', ''),
+(23, 'Nunc', 'HYR31VLG3GC', 'cras.vehicula@pretiumnequemorbi.edu', 'Oprah Glenn', 'USER', 0, 0, NULL, '', '', ''),
+(25, 'nunc', 'YXK63TWK6UD', 'tempor.lorem@consectetuerrhoncus.org', 'Karina Cameron', 'ADMIN', 0, 0, NULL, '', '', ''),
+(26, 'atarac', 'd41d8cd98f00b204e9800998ecf8427e', 'velit.egestas.lacinia@pedesuspendissedui.org', 'Mia Alston', 'CLIENT', 0, 0, NULL, '', '', ''),
+(27, 'Mauris', 'SHX01SDC7AW', 'diam.pellentesque@aliquetmolestie.co.uk', 'Chava Rutledge', 'USER', 0, 0, NULL, '', '', ''),
+(28, 'feugiat', 'IWT23WOP2EH', 'donec@tempusnon.net', 'Cody Lucas', 'USER', 0, 0, NULL, '', '', ''),
+(29, 'elementum', 'TBB58KJS8CO', 'id.libero@egestas.ca', 'Garrison Dejesus', 'USER', 0, 0, NULL, '', '', ''),
+(30, 'in', 'KBR87KWL8CF', 'non.feu1234124giat.nec@nislsem.net', 'Kaseem ', 'USER', 0, 0, NULL, '', '', ''),
+(31, 'ligula.', 'NMC63TPY7TN', 'cursus@pretiumet.ca', 'Ayanna Lott', 'ADMIN', 0, 0, NULL, '', '', ''),
+(34, 'julio1234', '3c5f36131edaaee5a67d712333ee34c9', 'julio1234@hotmail.com', 'julio', 'USER', 0, 0, 'uploads/616769cf6e0b16.34438518.png', '', 'Hola soy julio', '');
 DROP TRIGGER IF EXISTS `DELETE USUARIOS`;
 DELIMITER $$
 CREATE TRIGGER `DELETE USUARIOS` AFTER DELETE ON `usuarios` FOR EACH ROW INSERT INTO triggers(trigger_name, trigger_message) VALUES("DELETE USUARIOS",  CONCAT("Se eliminó el usuario ", OLD.username," ",OLD.email))
@@ -75,12 +214,6 @@ DELIMITER $$
 CREATE TRIGGER `UPDATE USUARIOS` AFTER UPDATE ON `usuarios` FOR EACH ROW INSERT INTO triggers(trigger_name, trigger_message) VALUES("UPDATE USUARIOS", CONCAT("Se actualizó los valores del usuario ", NEW.username, " | ", NEW.email))
 $$
 DELIMITER ;
-
--- --------------------------------------------------------
-
---
--- Estructura de tabla para la tabla `video_games`
---
 
 DROP TABLE IF EXISTS `video_games`;
 CREATE TABLE `video_games` (
@@ -121,10 +254,6 @@ CREATE TABLE `video_games` (
   `Length.Main Story.Polled` varchar(24) DEFAULT NULL,
   `Length.Main Story.Rushed` varchar(24) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
-
---
--- Volcado de datos para la tabla `video_games`
---
 
 INSERT INTO `video_games` (`Title`, `Features.Handheld?`, `Features.Max Players`, `Features.Multiplatform?`, `Features.Online?`, `Metadata.Genres`, `Metadata.Licensed?`, `Metadata.Publishers`, `Metadata.Sequel?`, `Metrics.Review Score`, `Metrics.Sales`, `Metrics.Used Price`, `Release.Console`, `Release.Rating`, `Release.Re-release?`, `Release.Year`, `Length.All PlayStyles.Average`, `Length.All PlayStyles.Leisure`, `Length.All PlayStyles.Median`, `Length.All PlayStyles.Polled`, `Length.All PlayStyles.Rushed`, `Length.Completionists.Average`, `Length.Completionists.Leisure`, `Length.Completionists.Median`, `Length.Completionists.Polled`, `Length.Completionists.Rushed`, `Length.Main + Extras.Average`, `Length.Main + Extras.Leisure`, `Length.Main + Extras.Median`, `Length.Main + Extras.Polled`, `Length.Main + Extras.Rushed`, `Length.Main Story.Average`, `Length.Main Story.Leisure`, `Length.Main Story.Median`, `Length.Main Story.Polled`, `Length.Main Story.Rushed`) VALUES
 ('Title', 'Features.Handheld?', 'Features.Max Players', 'Features.Multiplatform?', 'Features.Online?', 'Metadata.Genres', 'Metadata.Licensed?', 'Metadata.Publishers', 'Metadata.Sequel?', 'Metrics.Review Score', 'Metrics.Sales', 'Metrics.Used Price', 'Release.Console', 'Release.Rating', 'Release.Re-release?', 'Release.Year', 'Length.All PlayStyles.Average', 'Length.All PlayStyles.Leisure', 'Length.All PlayStyles.Median', 'Length.All PlayStyles.Polled', 'Length.All PlayStyles.Rushed', 'Length.Completionists.Average', 'Length.Completionists.Leisure', 'Length.Completionists.Median', 'Length.Completionists.Polled', 'Length.Completionists.Rushed', 'Length.Main + Extras.Average', 'Length.Main + Extras.Leisure', 'Length.Main + Extras.Median', 'Length.Main + Extras.Polled', 'Length.Main + Extras.Rushed', 'Length.Main Story.Average', 'Length.Main Story.Leisure', 'Length.Main Story.Median', 'Length.Main Story.Polled', 'Length.Main Story.Rushed'),
@@ -1350,37 +1479,39 @@ INSERT INTO `video_games` (`Title`, `Features.Handheld?`, `Features.Max Players`
 ('Secret Files: Tunguska', 'True', '2', 'True', 'True', 'Adventure', 'True', '', 'True', '64', '0.02', '17.95', 'Nintendo Wii', 'M', 'True', '2008', '10.083333333333334', '13.6', '9.333333333333334', '27', '7.3', '12.05', '14.75', '12.0', '9', '10.5', '11.5', '11.75', '11.5', '2', '11.25', '8.8', '12.566666666666666', '8.716666666666667', '16', '6.816666666666666'),
 ('Chicken Hunter', 'True', '1', 'True', 'True', 'Action', 'True', '', 'True', '39', '0.02', '17.95', 'Nintendo DS', 'T', 'True', '2008', '1.5', '1.5', '1.5', '1', '1.5', '1.5', '1.5', '1.5', '1', '1.5', '0.0', '0.0', '0.0', '0', '0.0', '0.0', '0.0', '0.0', '0', '0.0');
 
---
--- Índices para tablas volcadas
---
 
---
--- Indices de la tabla `triggers`
---
+ALTER TABLE `cart`
+  ADD PRIMARY KEY (`id`),
+  ADD KEY `username_id` (`username_id`),
+  ADD KEY `product_foreign_key` (`product_id`);
+
+ALTER TABLE `product`
+  ADD PRIMARY KEY (`ID`);
+ALTER TABLE `product` ADD FULLTEXT KEY `product_name` (`product_name`,`product_description`,`product_long_description`);
+
 ALTER TABLE `triggers`
   ADD PRIMARY KEY (`id`);
 
---
--- Indices de la tabla `usuarios`
---
 ALTER TABLE `usuarios`
   ADD PRIMARY KEY (`id`);
 
---
--- AUTO_INCREMENT de las tablas volcadas
---
 
---
--- AUTO_INCREMENT de la tabla `triggers`
---
+ALTER TABLE `cart`
+  MODIFY `id` int(7) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=15;
+
+ALTER TABLE `product`
+  MODIFY `ID` int(7) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
+
 ALTER TABLE `triggers`
-  MODIFY `id` int(7) NOT NULL AUTO_INCREMENT;
+  MODIFY `id` int(7) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=115;
 
---
--- AUTO_INCREMENT de la tabla `usuarios`
---
 ALTER TABLE `usuarios`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=36;
+
+
+ALTER TABLE `cart`
+  ADD CONSTRAINT `product_foreign_key` FOREIGN KEY (`product_id`) REFERENCES `product` (`ID`) ON DELETE CASCADE,
+  ADD CONSTRAINT `username_foreign_key` FOREIGN KEY (`username_id`) REFERENCES `usuarios` (`id`) ON DELETE CASCADE;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;

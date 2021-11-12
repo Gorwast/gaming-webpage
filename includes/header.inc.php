@@ -13,7 +13,7 @@
 
     <!--css-->
     <?php
-    include("includes/style.inc.php");
+    include("style.inc.php");
     ?>
     <!--JS-->
 

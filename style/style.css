@@ -1,5 +1,13 @@
 @import url(https://fonts.googleapis.com/css?family=Roboto:300);
 
+img.product-img {
+  max-width: 100%;
+  height: auto;
+  background: white;
+}
+div.main {
+  margin-top: 70px;
+}
 .login-page {
   width: 360px;
   padding: 8% 0 0;
@@ -8,7 +16,7 @@
 .form {
   position: relative;
   z-index: 1;
-  background: #FFFFFF;
+  background: #ffffff;
   max-width: 360px;
   margin: 0 auto 100px;
   padding: 45px;
@@ -34,13 +42,15 @@
   width: 100%;
   border: 0;
   padding: 15px;
-  color: #FFFFFF;
+  color: #ffffff;
   font-size: 14px;
   -webkit-transition: all 0.3 ease;
   transition: all 0.3 ease;
   cursor: pointer;
 }
-.form button:hover,.form button:active,.form button:focus {
+.form button:hover,
+.form button:active,
+.form button:focus {
   background: #993f3f;
 }
 .form .message {
@@ -59,7 +69,8 @@
   max-width: 1000px;
   margin: 0 auto;
 }
-.container-form:before, .container-form:after {
+.container-form:before,
+.container-form:after {
   content: "";
   display: block;
   clear: both;
@@ -84,13 +95,13 @@
   text-decoration: none;
 }
 .container-form .info span .fa {
-  color: #EF3B3A;
+  color: #ef3b3a;
 }
 
 .header {
-    text-align: center;
-    color: black;
-    font-family: "Roboto";
+  text-align: center;
+  color: black;
+  font-family: "Roboto";
 }
 
 a.button {
@@ -117,5 +128,5 @@ body {
   */
   font-family: "Roboto", sans-serif;
   -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;      
+  -moz-osx-font-smoothing: grayscale;
 }

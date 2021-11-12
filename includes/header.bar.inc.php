@@ -1,49 +1,66 @@
-<header class="p-3 bg-dark text-white">
-    <div class="container">
-        <div class="d-flex flex-wrap align-items-center justify-content-center justify-content-lg-start">
-            <div class="col-1">
-                <a href="/" class="d-flex align-items-center mb-2 mb-lg-0 text-white text-decoration-none">
-                    <img src="img/logo.png" alt="GG" class="" height="30px">
-                </a>
-            </div>
-
-            <div class="col-2 d-none d-lg-block align-middle nav col-12 col-md-auto me-md-auto mb-2 justify-content-center mb-md-0">
-                <div class="text-left text-white">
-                    <p class="px-2 text-white"> <?php if (isset($_SESSION["name"])) {
-                                                                echo "BIENVENIDO, ". $_SESSION["name"];
-                                                            } ?></p>
-                </div>
-            </div>
-
-            <ul class="nav col-12 col-md-auto d-none d-lg-inline-flex me-md-auto mb-2 justify-content-center mb-md-0">
-                <li><a href="#" class="nav-link px-2 text-secondary">Inicio</a></li>
-                <li><a href="#" class="nav-link px-2 text-white">Acerca de nosotros</a></li>
-                <li><a href="#" class="nav-link px-2 text-white">FAQs</a></li>
-                <li><a href="#" class="nav-link px-2 text-white">About</a></li>
-            </ul>
-
-            <div class="text-end">
+<nav class="navbar navbar-expand-md navbar-dark fixed-top bg-dark">
+    <div class="container-fluid">
+        <a href="/" class="navbar-brand">
+            <img src="/img/logo.png" alt="GG" class="" height="30px">
+        </a>
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavDropdown" aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarNavDropdown">
+            <ul class="navbar-nav">
+                <li class="nav-item">
+                    <a class="nav-link active" aria-current="page" href="home.php">Inicio</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="store.php">Tienda</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="#">Acerca de Nosotros</a>
+                </li>
                 <?php
                 if (isset($_SESSION["username"])) {
-                    if ($pageName != "Home") {
-                        echo '<a type="button" class="btn btn-outline-light me-2" href="home.php">Hogar</a>';
-                    }
-                    if ($_SESSION['userType'] == 'ADMIN' and $pageName != 'Inicio') {
-                        echo '<a type="button" class="btn btn-outline-light me-2" href="usuarios.php">Usuarios</a>';
-                        echo '<a type="button" class="btn btn-outline-light me-2" href="bitacora.php">Bitacora</a>';
+
+                    if ($_SESSION['userType'] == 'ADMIN') {
+                        echo '<li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                            Secciones
+                        </a>
+                        <ul class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
+                            <li><a class="dropdown-item" href="products.php">Productos</a></li>
+                            <li><a class="dropdown-item" href="usuarios.php">Usuarios</a></li>
+                            <li><a class="dropdown-item" href="bitacora.php">Registro</a></li>
+                        </ul>
+                    </li>';
                     }
                     if ($_SESSION['userType'] != 'INVITE') {
-                        echo '<a type="button" class="btn btn-outline-light me-2" href="settings.php">Configuraciones</a>';
+                        echo '<li class="nav-item">
+                        <a class="nav-link" href="settings.php"><i class="fas fa-cog"></i> Configuración</a>
+                    </li>';
                     }
 
-                    echo '<a type="button" class="btn btn-outline-light me-2" href="includes/logout.inc.php">Cerrar Sesión</a>';
+                    echo '<li class="nav-item">
+                    <a class="nav-link" href="includes/logout.inc.php">Cerrar Sesión</a>
+                </li>';
                 } else {
-                    echo '<a type="button" class="btn btn-outline-light me-2" href="login.php">Login</a>
-                          <a type="button" class="btn btn-warning" href="signup.php" name="signup">Sign-up</a>';
+                    echo '<li class="nav-item">
+                    <a class="nav-link" href="login.php">Login</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="signup.php">Sign-up</a>
+                </li>';
                 }
                 ?>
-
-            </div>
+                <li class="nav-item">
+                    <a class="nav-link" href="carrito.php">
+                        <i class="fas fa-shopping-cart"></i>
+                        Carrito
+                    </a>
+                </li>
+            </ul>
         </div>
     </div>
-</header>
+</nav>
+
+<div class="container main">
+    <div class="d-block"></div>
+</div>
