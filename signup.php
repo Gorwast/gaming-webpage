@@ -11,11 +11,15 @@ require_once("includes/header.inc.php");
 
         <div class="form">
             <form class="register-form" action="includes/signup.inc.php" method="POST">
+
                 <div class="header">
                     <h1>Registro de usuarios</h1>
                 </div>
-                
-                
+
+                <div class="container-fluid text">
+                    <p class="text-dark">Aun no estas registrado? Crea una cuenta nueva!</p>
+                </div>
+
                 <input type="text" placeholder="Nombre" value="" name="name" />
                 <input type="text" placeholder="Nombre de usuario" name="username" />
                 <input type="text" placeholder="Correo Electronico" name="email" />

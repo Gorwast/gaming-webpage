@@ -6,7 +6,7 @@ include("includes/header.inc.php");
 
 <body>
 
-    <main>
+    <main role="main" class="container">
 
         <?php
         include("includes/header.bar.inc.php");
@@ -29,7 +29,7 @@ include("includes/header.inc.php");
 
         <div class="container-md">
             <div class="row p-10">
-                <div class="col-lg-6 d-flex mx-auto">
+                <div class="col-lg-6 d-flex m-auto">
                     <p class="align-self-center lead mb-4">Nosotros una pagina de gustos de videojuegos en el cual puedes almacenar los videojuegos que te interesan, que te has pasado y por los cuales tienes alguna pasión por compartir.</p>
 
                 </div>
@@ -38,7 +38,7 @@ include("includes/header.inc.php");
 
                 </div>
             </div>
-            <div class="row p-10">
+            <div class="row m-10">
 
                 <div class="col-lg-6 d-flex mx-auto">
                     <img class="img-fluid rounded" src="img/Gaming-Cloud.jpg" alt="Control Gaming">
@@ -49,13 +49,14 @@ include("includes/header.inc.php");
                 </div>
 
             </div>
-            
+
 
         </div>
     </main>
 
     <?php
-    include("includes/footer.inc.php");
+    include(__DIR__ . "/includes/footer.inc.php");
+
     ?>
 
 

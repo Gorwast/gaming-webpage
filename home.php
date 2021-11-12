@@ -20,17 +20,16 @@ $results = mysqli_query($connection, $query);
     include("includes/header.bar.inc.php");
     ?>
 
-
-    <div class="container">
+    <div class="container main">
         <main>
             <div class="row">
                 <div class="col-3">
                     <a href="">
                         <img class="img-fluid p-10" src="<?php if ($_SESSION['profilePictureRoute'] == null) {
-                                        echo 'img/blank-profile-picture.png';
-                                    } else {
-                                        echo $_SESSION['profilePictureRoute'];
-                                    } ?>" alt="">
+                                                                echo 'img/blank-profile-picture.png';
+                                                            } else {
+                                                                echo $_SESSION['profilePictureRoute'];
+                                                            } ?>" alt="">
                     </a>
                 </div>
                 <div class="col-9 p-10 lead">
@@ -39,52 +38,13 @@ $results = mysqli_query($connection, $query);
                 </div>
             </div>
 
-            <div class="card card-body">
-                <div class="col-12">
-                    <div class="header">
-                        <h1>Videojuegos</h1>
-                    </div>
-                </div>
-                <div class="row">
-                    <div class="col-12">
-                        <table class="table table-bordered">
-                            <thead>
-                                <tr>
-                                    <th>Titulo</th>
-                                    <th>Generos</th>
-                                    <th>Consola</th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                <?php
-                                while ($row = mysqli_fetch_array($results)) { ?>
-                                    <tr>
-                                        <td><?php echo $row['Title'] ?></td>
-                                        <td><?php echo $row['Metadata.Genres'] ?></td>
-                                        <td><?php echo $row['Release.Console'] ?></td>
-
-                                    </tr>
-
-
-                                <?php } ?>
-                            </tbody>
-                        </table>
-                    </div>
-
-                </div>
-            </div>
-
-            <?php
-            ?>
-
-
-
         </main>
     </div>
     <?php
     include("includes/footer.inc.php")
     ?>
 
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous"></script>
 </body>
 
 </html>
